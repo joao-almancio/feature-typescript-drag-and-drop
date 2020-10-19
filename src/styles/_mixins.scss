@@ -1,0 +1,21 @@
+@mixin breakpoint-up($breakpoint) {
+    @if (map-has-key($breakpoints, $breakpoint)) {
+        $value: map-get($breakpoints, $breakpoint);
+        @media (min-width: $value) {
+            @content;
+        }
+    } @else {
+        @warn "<< #{$breakpoint} >> is not a valid entry for breakpoint. Use either 'sm', 'md', 'lg' or 'xl' instead";
+    }
+}
+
+@mixin breakpoint-down($breakpoint) {
+    @if (map-has-key($breakpoints, $breakpoint)) {
+        $value: map-get($breakpoints, $breakpoint);
+        @media (max-width: $value) {
+            @content;
+        }
+    } @else {
+        @warn "<< #{$breakpoint} >> is not a valid entry for breakpoint. Use either 'sm', 'md', 'lg' or 'xl' instead";
+    }
+}

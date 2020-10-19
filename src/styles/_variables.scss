@@ -1,0 +1,36 @@
+// Color set
+$black: #000000de;
+$black-medium: #0009;
+$black-disabled: #00000061;
+
+$white: #FFF;
+$white-medium: #ffffff99;
+$white-disabled: #ffffff4d;
+
+$gray-0: #16181D;
+$gray-1: #1E2129;
+$gray-2: #252832;
+$gray-3: #2B2F3B;
+$gray-4: #373C49;
+$gray-5: #414758;
+
+$primary: #7D98E8;
+$on-primary: $white;
+
+$background: $gray-0;
+$on-background: $white;
+
+$surface-1: $gray-1;
+$surface-2: $gray-2;
+$surface-3: $gray-3;
+$surface-4: $gray-4;
+$surface-5: $gray-5;
+$on-surface: $white;
+
+// Brakpoints
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+)
