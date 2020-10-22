@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and Drop</title>
-    <script src="index.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typescript - Drag and Drop</title>
+  <script src="index.js" defer></script>
 </head>
+
 <body>
-    
+  <header>
+    <h1 class="title">Typescript - Drag and Drop</h1>
+  </header>
+  <main>
+    <section class="create-task">
+      <form id="task-input">
+        <div class="inputs">
+          <div contenteditable="true" id="title-input" class="input" data-placeholder="Title"></div>
+          <div contenteditable="true" id="text-input" class="input" data-placeholder="Create new task..."></div>
+        </div>
+        <div class="action-bar">
+          <button type="button" class="create-btn">create</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="task-list">
+      <div class="card-wrapper">
+        <div class="card-slot-container">
+          <h2>Todos</h2>
+          <div id="todo-slot" class="card-slot"></div>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="card-slot-container">
+          <h2>In progress</h2>
+          <div id="progress-slot" class="card-slot"></div>
+        </div>
+
+      </div>
+
+      <div class="card-wrapper">
+        <div class="card-slot-container">
+          <h2>Done</h2>
+          <div id="done-slot" class="card-slot"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
 </body>
+
 </html>

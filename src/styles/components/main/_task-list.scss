@@ -1,0 +1,25 @@
+.task-list {
+  @extend %container;
+
+  display: flex;
+  justify-content: space-between;
+
+  .card-wrapper {
+    @extend .col-12, .col-sm-4;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    .card-slot-container {
+      background-color: $surface-1;
+      border-radius: 0.5rem;
+      padding: 1rem;
+
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 300;
+        text-align: left;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

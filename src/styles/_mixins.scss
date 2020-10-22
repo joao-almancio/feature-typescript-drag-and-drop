@@ -1,21 +1,90 @@
 @mixin breakpoint-up($breakpoint) {
-    @if (map-has-key($breakpoints, $breakpoint)) {
-        $value: map-get($breakpoints, $breakpoint);
-        @media (min-width: $value) {
-            @content;
-        }
-    } @else {
-        @warn "<< #{$breakpoint} >> is not a valid entry for breakpoint. Use either 'sm', 'md', 'lg' or 'xl' instead";
+  @if (map-has-key($breakpoints, $breakpoint)) {
+    $value: map-get($breakpoints, $breakpoint);
+    @media (min-width: $value) {
+      @content;
     }
+  } @else {
+    @warn "<< #{$breakpoint} >> is not a valid entry for breakpoint. Use either 'sm', 'md', 'lg' or 'xl' instead";
+  }
 }
 
 @mixin breakpoint-down($breakpoint) {
-    @if (map-has-key($breakpoints, $breakpoint)) {
-        $value: map-get($breakpoints, $breakpoint);
-        @media (max-width: $value) {
-            @content;
-        }
-    } @else {
-        @warn "<< #{$breakpoint} >> is not a valid entry for breakpoint. Use either 'sm', 'md', 'lg' or 'xl' instead";
+  @if (map-has-key($breakpoints, $breakpoint)) {
+    $value: map-get($breakpoints, $breakpoint);
+    @media (max-width: $value) {
+      @content;
     }
+  } @else {
+    @warn "<< #{$breakpoint} >> is not a valid entry for breakpoint. Use either 'sm', 'md', 'lg' or 'xl' instead";
+  }
+}
+
+@for $i from 1 to 13 {
+  .col-#{$i} {
+    $value: ($i/12) * 100%;
+    flex: 0 0 $value;
+    max-width: $value;
+  }
+}
+
+@for $i from 1 to 13 {
+  @include breakpoint-up(sm) {
+    .col-sm-#{$i} {
+      $value: ($i/12) * 100%;
+      flex: 0 0 $value;
+      max-width: $value;
+    }
+  }
+}
+
+@for $i from 1 to 13 {
+  @include breakpoint-up(md) {
+    .col-md-#{$i} {
+      $value: ($i/12) * 100%;
+      flex: 0 0 $value;
+      max-width: $value;
+    }
+  }
+}
+
+@for $i from 1 to 13 {
+  @include breakpoint-up(lg) {
+    &.col-lg-#{$i} {
+      $value: ($i/12) * 100%;
+      flex: 0 0 $value;
+      max-width: $value;
+    }
+  }
+}
+
+@for $i from 1 to 13 {
+  @include breakpoint-up(xl) {
+    &.col-xl-#{$i} {
+      $value: ($i/12) * 100%;
+      flex: 0 0 $value;
+      max-width: $value;
+    }
+  }
+}
+
+%container {
+  margin: 0 auto;
+  max-width: (130*2)+30px;
+
+  @include breakpoint-up(sm) {
+    max-width: (66*6)+(30*5px);
+  }
+
+  @include breakpoint-up(md) {
+    max-width: (88*6)+(30*5px);
+  }
+
+  @include breakpoint-up(lg) {
+    max-width: (50*12)+(30*11px);
+  }
+
+  @include breakpoint-up(xl) {
+    max-width: (70*12)+(30*11px);
+  }
 }

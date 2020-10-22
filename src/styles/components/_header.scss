@@ -1,0 +1,24 @@
+header {
+  height: 4.5rem;
+  background-color: $surface-1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  @include breakpoint-up(md) {
+    height: 5rem;
+  }
+
+  .title {
+    font-size: 1.5em;
+    font-weight: 300;
+    text-align: center;
+    color: $on-surface;
+    white-space: nowrap;
+
+    @include breakpoint-up(md) {
+      font-size: 2em;
+    }
+  }
+}
