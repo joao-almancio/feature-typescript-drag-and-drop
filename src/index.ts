@@ -33,7 +33,6 @@ class TodoCardInput {
 
     inputEl.addEventListener('input', handlePlaceholder)
   }
-
 }
 
 const todoCardInput = new TodoCardInput('title-input', "text-input");

@@ -19,6 +19,36 @@
         text-align: left;
         margin-bottom: 1rem;
       }
+
+      .card-slot {
+        .card {
+          padding: 1rem;
+          border-radius: 0.5rem;
+
+          &.todo {
+            background-color: $yellow;
+          }
+          &.progress {
+            background-color: $green;
+          }
+          &.done {
+            background-color: $blue;
+          }
+
+          .input {
+            outline: none;
+
+            &.title {
+              font-size: 1.25rem;
+              margin-bottom: 0.5rem;
+            }
+
+            &.text {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
     }
   }
 }
