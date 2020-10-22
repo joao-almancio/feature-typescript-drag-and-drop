@@ -31,16 +31,27 @@
         outline: none;
         color: $on-surface;
 
-        &::placeholder {
-          color: $white-medium;
+
+        &.has-content {
+          &::before {
+            display: none;
+          }
         }
 
         &#title-input {
           font-size: 1.5rem;
+          &::before {
+            color: $white-medium;
+            content: "Title";
+          }
         }
 
         &#text-input {
           font-size: 1rem;
+          &::before {
+            color: $white-medium;
+            content: "Create new task...";
+          }
         }
       }
     }

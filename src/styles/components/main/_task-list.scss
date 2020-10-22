@@ -2,12 +2,11 @@
   @extend %container;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 
   .card-wrapper {
     @extend .col-12, .col-sm-4;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    margin: 0 0.5rem;
 
     .card-slot-container {
       background-color: $surface-1;
