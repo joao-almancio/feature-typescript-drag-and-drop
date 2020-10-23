@@ -1,23 +1,9 @@
+import { Card } from "./Card";
+import { getElement } from "../utils";
+import { CardsSlots } from "./CardsSlots";
+
 const HAS_CONTENT = "has-content";
-
-enum CARD_TEMPLATE {
-  TEMPLATE_ID = 'card',
-  TITLE = ".title",
-  TEXT = ".text",
-  TODO = "todo",
-  PROGRESS = "progress",
-  DONE = "done",
-}
-
-enum TARGET_SLOT {
-  TODO = "todo-slot",
-  PROGRESS = "progress-slot",
-  DONE = "done-slot",
-}
-
 type InputHandler = (inputEl: HTMLElement) => void;
-
-type InsertPosition = "afterbegin" | "beforeend";
 
 export class TodoCardInput {
   readonly titleInputEl: HTMLElement;
@@ -26,10 +12,10 @@ export class TodoCardInput {
   readonly templateEl: HTMLTemplateElement;
 
   constructor(titleId: string, textId: string, buttonId: string, templateId: string) {
-    this.titleInputEl = this.getElement(titleId);
-    this.textInputEl = this.getElement(textId);
-    this.createButtonEl = this.getElement(buttonId) as HTMLButtonElement;
-    this.templateEl = this.getElement(templateId) as HTMLTemplateElement;
+    this.titleInputEl = getElement(titleId);
+    this.textInputEl = getElement(textId);
+    this.createButtonEl = getElement(buttonId) as HTMLButtonElement;
+    this.templateEl = getElement(templateId) as HTMLTemplateElement;
 
     this.listenPlaceholder(this.titleInputEl, this.handlePlaceholder);
     this.listenPlaceholder(this.textInputEl, this.handlePlaceholder);
@@ -63,18 +49,9 @@ export class TodoCardInput {
       cardInput.clearInputField(cardInput);
 
       // Cria o card
-      const host = cardInput.getElement(TARGET_SLOT.TODO)
-      cardInput.createCard(title, text, host, cardInput.templateEl);
+      const targetSlot = CardsSlots.getInstance();
+      new Card(title, text, targetSlot.todoSlot, cardInput.templateEl);
     });
-  }
-
-  getElement(queryId: string) {
-    let element = document.getElementById(queryId);
-    if (element) {
-      return element;
-    }
-    console.error(`"${queryId}" is not a valid id.`);
-    return document.createElement("br") as HTMLElement;
   }
 
   clearInputField(cardInput: TodoCardInput) {
@@ -82,17 +59,5 @@ export class TodoCardInput {
     cardInput.textInputEl.innerText = "";
     cardInput.titleInputEl.classList.remove(HAS_CONTENT);
     cardInput.textInputEl.classList.remove(HAS_CONTENT);
-  }
-
-  createCard(title: string, text: string, host: HTMLElement, template: HTMLTemplateElement) {
-    const clone = template.content.cloneNode(true) as HTMLElement;
-    const cardEl = clone.firstElementChild as HTMLElement;
-    const cardTitle = cardEl.querySelector(CARD_TEMPLATE.TITLE)! as HTMLElement;
-    const cardText = cardEl.querySelector(CARD_TEMPLATE.TEXT)! as HTMLElement;
-    cardTitle.innerText = title;
-    cardText.innerText = text;
-    cardEl.classList.add(CARD_TEMPLATE.TODO);
-
-    host.insertAdjacentElement("beforeend", cardEl);
   }
 }
