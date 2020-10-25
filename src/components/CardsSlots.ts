@@ -26,7 +26,6 @@ export class CardsSlots {
   }
 
   getSlot(slotsArray: Slot[], slotId: string) {
-    let element;
     for (let slot of slotsArray) {
       let id = slot.id;
       if (id !== slotId) {
@@ -38,14 +37,13 @@ export class CardsSlots {
   }
 
   private listenDrop(dropableArea: HTMLElement) {
-    const dragEnter = function (_event: DragEvent) {
+    const dragEnter = function (event: DragEvent) {
       addDragOverStyle(dropableArea);
-      console.log("enter");
+      event.dataTransfer!.dropEffect = "move"
     }
 
     const dragLeave = function (_event: DragEvent) {
       removeDragOverStyle(dropableArea);
-      console.log("leave");
     }
 
     const dragOver = function (event: DragEvent) {
@@ -62,7 +60,9 @@ export class CardsSlots {
 
         if (oldParent !== newParent) {
           oldParent.removeChild(cardEl);
-          newParent.insertAdjacentElement("afterbegin", cardEl);
+          newParent.insertAdjacentElement("beforebegin", cardEl);
+          removeDragOverStyle(oldParent);
+          removeDragOverStyle(newParent);
         }
       }
     }

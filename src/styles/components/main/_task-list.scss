@@ -20,22 +20,18 @@
         margin-bottom: 1rem;
       }
 
-      .card-slot {
-        min-height: 1rem;
-        border-radius: 0.5rem;
-        transition: 0.3s;
-
-        &#todo-slot {
+      .card-slot-wrapper {
+        &.todo {
           .card {
             background-color: $yellow;
           }
         }
-        &#progress-slot {
+        &.progress {
           .card {
             background-color: $green;
           }
         }
-        &#done-slot {
+        &.done {
           .card {
             background-color: $blue;
           }
@@ -70,38 +66,52 @@
           }
         }
 
-        &::after {
-          content: "";
+        .card-slot {
+          min-height: 1rem;
           border-radius: 0.5rem;
-          display: block;
-          background-color: $surface-2;
-          min-height: 0;
-          width: 100%;
-          margin-top: 0.5rem;
+          transition: 0.3s;
 
-        }
-
-        &.dropable {
           &::after {
             content: "";
+            border-radius: 0.5rem;
+            display: block;
             background-color: $surface-2;
-            min-height: 2rem;
-            transition: 0.3s;
+            min-height: 0;
+            width: 100%;
+            margin-top: 0.5rem;
           }
 
-          &.dropable-over {
+          &.dropable {
             &::after {
-              background-color: $surface-3;
-
+              content: "";
+              background-color: $surface-2;
+              min-height: 2rem;
+              transition: 0.3s;
             }
-          }
-          .card {
-            pointer-events: all;
-            .input {
-              pointer-events: none;
+
+            &.dropable-over {
+              &::after {
+                background-color: $surface-3;
+              }
+            }
+            .card {
+              pointer-events: all;
+              .input {
+                pointer-events: none;
+              }
             }
           }
         }
+      }
+    }
+  }
+
+  // Drag and drop
+  &.dragging {
+    .card {
+      pointer-events: all;
+      .input {
+        pointer-events: none;
       }
     }
   }

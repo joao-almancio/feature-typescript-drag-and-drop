@@ -18,14 +18,17 @@ export class Card {
 
     const cardSlots = CardsSlots.getInstance();
     this.listenDrag(cardEl, cardSlots.slots);
+    this.listenDrop(cardEl);
 
-    cardSlots.atatch("beforeend", cardSlots.getSlot(cardSlots.slots, targetSlotId), cardEl);
+    cardSlots.atatch("beforebegin", cardSlots.getSlot(cardSlots.slots, targetSlotId), cardEl);
   }
 
   private listenDrag(cardEl: HTMLElement, slotsList: Slot[]) {
     // Drag Actions
-    const dragStart = function(event: DragEvent) {
+    const dragStart = function (event: DragEvent) {
       const target = event.currentTarget as HTMLElement;
+
+      event.dataTransfer?.setDragImage(target, 10, (target.scrollHeight * 0.5));
 
       if (event.dataTransfer && target.parentElement) {
         event.dataTransfer.setData(CARDDATA.ELEMENTID, target.id)
@@ -35,22 +38,30 @@ export class Card {
       addDropableStyle(slotsList);
 
       target.classList.add("dragging");
+
+      const cardContainer = getElement("task-list");
+      cardContainer.classList.add("dragging");
+
+      event.dataTransfer!.effectAllowed = "move"
     }
-    const dragEnd = function(event: DragEvent) {
+    const dragEnd = function (event: DragEvent) {
       event.preventDefault();
       const target = event.currentTarget as HTMLElement;
 
       removeDropableStyle(slotsList);
       target.classList.remove("dragging");
+
+      const cardContainer = getElement("task-list");
+      cardContainer.classList.remove("dragging");
     }
 
     // Drag Styles
-    const addDropableStyle = function(slots: Slot[]) {
+    const addDropableStyle = function (slots: Slot[]) {
       for (let slot of slots) {
         slot.element.classList.add("dropable");
       }
     }
-    const removeDropableStyle = function(slots: Slot[]) {
+    const removeDropableStyle = function (slots: Slot[]) {
       for (let slot of slots) {
         slot.element.classList.remove("dropable");
       }
@@ -58,5 +69,50 @@ export class Card {
 
     cardEl.addEventListener("dragstart", dragStart);
     cardEl.addEventListener("dragend", dragEnd);
+  }
+
+  private listenDrop(dropableArea: HTMLElement) {
+    const dragEnter = function (event: DragEvent) {
+      addDragOverStyle(dropableArea);
+      event.dataTransfer!.dropEffect = "move"
+    }
+
+    const dragLeave = function (_event: DragEvent) {
+      removeDragOverStyle(dropableArea);
+    }
+
+    const dragOver = function (event: DragEvent) {
+      event.preventDefault();
+    }
+
+    const drop = function (event: DragEvent) {
+      if (event.dataTransfer) {
+        const elementId = event.dataTransfer.getData(CARDDATA.ELEMENTID);
+        const oldParentId = event.dataTransfer.getData(CARDDATA.PARENTID);
+        const cardEl = getElement(elementId);
+        const oldParent = getElement(oldParentId);
+        const newParent = event.currentTarget as HTMLElement;
+
+        if (oldParent !== newParent && newParent !== cardEl) {
+          oldParent.removeChild(cardEl);
+          newParent.insertAdjacentElement("beforebegin", cardEl);
+          removeDragOverStyle(oldParent);
+          removeDragOverStyle(newParent);
+        }
+      }
+    }
+
+    // Drag Styles
+    const addDragOverStyle = function (slot: HTMLElement) {
+      slot.classList.add("dropable-over");
+    }
+    const removeDragOverStyle = function (slot: HTMLElement) {
+      slot.classList.remove("dropable-over");
+    }
+
+    dropableArea.addEventListener("dragenter", dragEnter);
+    dropableArea.addEventListener("dragleave", dragLeave);
+    dropableArea.addEventListener("dragover", dragOver);
+    dropableArea.addEventListener("drop", drop);
   }
 }

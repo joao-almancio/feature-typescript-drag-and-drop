@@ -25,12 +25,13 @@
       </form>
     </section>
 
-    <section class="task-list">
+    <section class="task-list" id="task-list">
       <div class="card-wrapper">
         <div class="card-slot-container">
           <h2>Todos</h2>
-          <div id="todo-slot" class="card-slot">
-
+          <div class="card-slot-wrapper todo" id="todo-parent">
+            <div id="todo-slot" class="card-slot">
+          </div>
           </div>
         </div>
       </div>
@@ -38,7 +39,9 @@
       <div class="card-wrapper">
         <div class="card-slot-container">
           <h2>In progress</h2>
-          <div id="progress-slot" class="card-slot"></div>
+          <div class="card-slot-wrapper progress" id="progress-parent">
+            <div id="progress-slot" class="card-slot"></div>
+          </div>
         </div>
 
       </div>
@@ -46,7 +49,9 @@
       <div class="card-wrapper">
         <div class="card-slot-container">
           <h2>Done</h2>
-          <div id="done-slot" class="card-slot"></div>
+          <div class="card-slot-wrapper done" id="done-parent">
+            <div id="done-slot" class="card-slot"></div>
+          </div>
         </div>
 
       </div>
