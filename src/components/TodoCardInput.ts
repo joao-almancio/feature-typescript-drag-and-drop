@@ -49,8 +49,8 @@ export class TodoCardInput {
       cardInput.clearInputField(cardInput);
 
       // Cria o card
-      const targetSlot = CardsSlots.getInstance();
-      new Card(title, text, targetSlot.todoSlot, cardInput.templateEl);
+      const cardSlot = CardsSlots.getInstance();
+      new Card(title, text, "todo-slot", cardInput.templateEl);
     });
   }
 

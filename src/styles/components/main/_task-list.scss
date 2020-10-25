@@ -22,19 +22,28 @@
 
       .card-slot {
         min-height: 1rem;
+        border-radius: 0.5rem;
+        transition: 0.3s;
+
+        &#todo-slot {
+          .card {
+            background-color: $yellow;
+          }
+        }
+        &#progress-slot {
+          .card {
+            background-color: $green;
+          }
+        }
+        &#done-slot {
+          .card {
+            background-color: $blue;
+          }
+        }
         .card {
           padding: 1rem;
           border-radius: 0.5rem;
 
-          &.todo {
-            background-color: $yellow;
-          }
-          &.progress {
-            background-color: $green;
-          }
-          &.done {
-            background-color: $blue;
-          }
           &:not(:last-of-type) {
             margin-bottom: 0.5rem;
           }
@@ -49,6 +58,47 @@
 
             &.text {
               font-size: 1rem;
+            }
+          }
+        }
+
+        // Drag Effects
+        .card {
+          &.dragging {
+            box-shadow: 0 0 5px $white;
+            transition: 0.2s;
+          }
+        }
+
+        &::after {
+          content: "";
+          border-radius: 0.5rem;
+          display: block;
+          background-color: $surface-2;
+          min-height: 0;
+          width: 100%;
+          margin-top: 0.5rem;
+
+        }
+
+        &.dropable {
+          &::after {
+            content: "";
+            background-color: $surface-2;
+            min-height: 2rem;
+            transition: 0.3s;
+          }
+
+          &.dropable-over {
+            &::after {
+              background-color: $surface-3;
+
+            }
+          }
+          .card {
+            pointer-events: all;
+            .input {
+              pointer-events: none;
             }
           }
         }
