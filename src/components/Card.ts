@@ -40,7 +40,7 @@ export class Card {
       target.classList.add("dragging");
 
       const cardContainer = getElement("task-list");
-      cardContainer.classList.add("dragging");
+      cardContainer.classList.add("dragging-state");
 
       event.dataTransfer!.effectAllowed = "move"
     }
@@ -83,6 +83,29 @@ export class Card {
 
     const dragOver = function (event: DragEvent) {
       event.preventDefault();
+
+      const getAfterElement = function(targetElement: HTMLElement, y: number) {
+        const parent = targetElement.parentElement;
+        const cards = [...parent!.querySelectorAll(".card")] as HTMLElement[];
+
+        return cards.reduce((value, cardEl) => {
+          const box = cardEl.getBoundingClientRect();
+          const offset = y - box.top - (box.height / 2);
+          if (offset < 0 && offset > value.offset) {
+            return { offset, element: cardEl }
+          } else {
+            return value;
+          }
+        }, { offset: Number.NEGATIVE_INFINITY, element:  targetElement}).element
+      }
+
+      const afterEl = getAfterElement(dropableArea, event.clientY);
+      const cardEl = document.querySelector(".dragging") as HTMLElement;
+      if (afterEl === cardEl) {
+        dropableArea.insertAdjacentElement("beforebegin", cardEl);
+      } else {
+        dropableArea.insertAdjacentElement("afterend", cardEl);
+      }
     }
 
     const drop = function (event: DragEvent) {

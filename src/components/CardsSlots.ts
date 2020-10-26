@@ -48,6 +48,8 @@ export class CardsSlots {
 
     const dragOver = function (event: DragEvent) {
       event.preventDefault();
+      const cardEl = document.querySelector(".dragging") as HTMLElement;
+      dropableArea.insertAdjacentElement("beforebegin", cardEl);
     }
 
     const drop = function (event: DragEvent) {

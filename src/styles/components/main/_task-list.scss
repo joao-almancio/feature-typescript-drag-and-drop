@@ -63,6 +63,7 @@
           &.dragging {
             box-shadow: 0 0 5px $white;
             transition: 0.2s;
+            opacity: 0.5;
           }
         }
 
@@ -107,7 +108,7 @@
   }
 
   // Drag and drop
-  &.dragging {
+  &#dragging-state {
     .card {
       pointer-events: all;
       .input {
