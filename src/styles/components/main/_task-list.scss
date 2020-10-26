@@ -108,7 +108,7 @@
   }
 
   // Drag and drop
-  &#dragging-state {
+  &.dragging-state {
     .card {
       pointer-events: all;
       .input {

@@ -52,7 +52,7 @@ export class Card {
       target.classList.remove("dragging");
 
       const cardContainer = getElement("task-list");
-      cardContainer.classList.remove("dragging");
+      cardContainer.classList.remove("dragging-state");
     }
 
     // Drag Styles
